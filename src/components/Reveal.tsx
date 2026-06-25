@@ -1,7 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface RevealProps {
-  children: ReactNode;
+  children: React.ReactNode;
   delay?: number;
   distance?: string;
   duration?: number;
