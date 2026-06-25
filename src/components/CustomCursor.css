@@ -1,38 +1,42 @@
-/* Custom Cursor Styles */
-body {
-  /* Consider enabling this later if it feels good universally */
-  /* cursor: none; */ 
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  background-color: var(--primary);
+  opacity: 0.6;
+  mix-blend-mode: difference;
 }
 
-.custom-cursor {
+.custom-cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
   width: 40px;
   height: 40px;
-  border: 2px solid theme('colors.blue.500'); /* Using tailwind theme color roughly */
+  border: 2px solid var(--primary);
   border-radius: 50%;
   pointer-events: none;
+  z-index: 9998;
   transform: translate(-50%, -50%);
-  z-index: 9999;
-  transition: opacity 0.3s ease;
+  opacity: 0.4;
+  transition: width 0.3s, height 0.3s;
 }
 
-.custom-cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: theme('colors.blue.500');
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 10000;
-  transition: opacity 0.3s ease;
+/* Hide default cursor globally, except for text inputs */
+body {
+  cursor: none !important;
 }
 
-/* Hide standard cursors on clickable elements when on desktop if we hide body cursor */
-/* a, button {
-  cursor: none;
-} */
+a, button, [role="button"], input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], select, .cursor-pointer {
+  cursor: none !important;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="url"], textarea {
+  cursor: text;
+}

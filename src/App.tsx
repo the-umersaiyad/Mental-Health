@@ -12,12 +12,12 @@ function App() {
    const queryClient = new QueryClient();
   return (
      <QueryClientProvider client={queryClient}>
+       <CustomCursor />
     <Router>
-      <CustomCursor />
-      <div className="flex min-h-screen w-full relative">
+      <div className="flex min-h-screen w-full">
         <AppSidebar />
 
-        <main className="flex-1 w-full relative z-10">
+        <main className="flex-1 w-full">
           <Navbar />
 
           <Routes>

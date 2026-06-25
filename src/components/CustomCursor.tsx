@@ -1,107 +1,134 @@
-import React, { useEffect, useRef } from 'react';
-import anime from 'animejs';
-import './CustomCursor.css';
+import { useEffect, useRef } from "react";
+import anime from "animejs";
+import "./CustomCursor.css";
 
-const CustomCursor: React.FC = () => {
+const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
-  const cursorDotRef = useRef<HTMLDivElement>(null);
+  const cursorRingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (cursorDotRef.current) {
-        cursorDotRef.current.style.left = `${e.clientX}px`;
-        cursorDotRef.current.style.top = `${e.clientY}px`;
-      }
-      
+      const { clientX, clientY } = e;
+
+      // Move the inner dot immediately
       if (cursorRef.current) {
+        cursorRef.current.style.left = `${clientX}px`;
+        cursorRef.current.style.top = `${clientY}px`;
+      }
+
+      // Smoothly animate the outer ring
+      if (cursorRingRef.current) {
+        anime({
+          targets: cursorRingRef.current,
+          left: `${clientX}px`,
+          top: `${clientY}px`,
+          duration: 100,
+          easing: "easeOutSine",
+        });
+      }
+    };
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isClickable =
+        target.tagName.toLowerCase() === "a" ||
+        target.tagName.toLowerCase() === "button" ||
+        target.closest("a") ||
+        target.closest("button") ||
+        target.classList.contains("cursor-pointer");
+
+      if (isClickable && cursorRingRef.current && cursorRef.current) {
+        anime({
+          targets: cursorRingRef.current,
+          width: "60px",
+          height: "60px",
+          duration: 300,
+          easing: "easeOutExpo",
+        });
         anime({
           targets: cursorRef.current,
-          left: e.clientX,
-          top: e.clientY,
-          duration: 500,
-          easing: 'easeOutElastic(1, .8)'
+          translateX: "-50%",
+          translateY: "-50%",
+          scale: 0.5,
+          duration: 300,
+          easing: "easeOutExpo",
+        });
+      }
+    };
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isClickable =
+        target.tagName.toLowerCase() === "a" ||
+        target.tagName.toLowerCase() === "button" ||
+        target.closest("a") ||
+        target.closest("button") ||
+        target.classList.contains("cursor-pointer");
+
+      if (isClickable && cursorRingRef.current && cursorRef.current) {
+        anime({
+          targets: cursorRingRef.current,
+          width: "40px",
+          height: "40px",
+          duration: 300,
+          easing: "easeOutExpo",
+        });
+        anime({
+          targets: cursorRef.current,
+          translateX: "-50%",
+          translateY: "-50%",
+          scale: 1,
+          duration: 300,
+          easing: "easeOutExpo",
         });
       }
     };
 
     const handleMouseDown = () => {
-      anime({
-        targets: cursorRef.current,
-        scale: 0.5,
-        backgroundColor: 'rgba(59, 130, 246, 0.2)',
-        duration: 150,
-        easing: 'easeOutQuad'
-      });
-      anime({
-        targets: cursorDotRef.current,
-        scale: 1.5,
-        duration: 150,
-        easing: 'easeOutQuad'
-      });
+      if (cursorRef.current) {
+        anime({
+          targets: cursorRef.current,
+          translateX: "-50%",
+          translateY: "-50%",
+          scale: 0.8,
+          duration: 100,
+          easing: "easeOutQuad",
+        });
+      }
     };
 
     const handleMouseUp = () => {
-      anime({
-        targets: cursorRef.current,
-        scale: 1,
-        backgroundColor: 'rgba(59, 130, 246, 0)',
-        duration: 150,
-        easing: 'easeOutQuad'
-      });
-      anime({
-        targets: cursorDotRef.current,
-        scale: 1,
-        duration: 150,
-        easing: 'easeOutQuad'
-      });
-    };
-
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      // Add a hover effect for clickable items
-      if (target.tagName.toLowerCase() === 'button' || target.tagName.toLowerCase() === 'a' || target.closest('button') || target.closest('a')) {
-         anime({
-           targets: cursorRef.current,
-           scale: 1.5,
-           borderWidth: '1px',
-           duration: 200,
-           easing: 'easeOutQuad'
-         })
+      if (cursorRef.current) {
+        anime({
+          targets: cursorRef.current,
+          translateX: "-50%",
+          translateY: "-50%",
+          scale: 1,
+          duration: 100,
+          easing: "easeOutQuad",
+        });
       }
     };
 
-    const handleMouseOut = (e: MouseEvent) => {
-       const target = e.target as HTMLElement;
-      if (target.tagName.toLowerCase() === 'button' || target.tagName.toLowerCase() === 'a' || target.closest('button') || target.closest('a')) {
-         anime({
-           targets: cursorRef.current,
-           scale: 1,
-           borderWidth: '2px',
-           duration: 200,
-           easing: 'easeOutQuad'
-         })
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('mouseover', handleMouseOver);
-    window.addEventListener('mouseout', handleMouseOut);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mouseout", handleMouseOut);
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('mouseover', handleMouseOver);
-      window.removeEventListener('mouseout', handleMouseOut);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mouseout", handleMouseOut);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
   }, []);
 
   return (
     <>
-      <div className="custom-cursor hidden md:block" ref={cursorRef} />
-      <div className="custom-cursor-dot hidden md:block" ref={cursorDotRef} />
+      <div ref={cursorRingRef} className="custom-cursor-ring hidden md:block pointer-events-none" />
+      <div ref={cursorRef} className="custom-cursor hidden md:block pointer-events-none" />
     </>
   );
 };
