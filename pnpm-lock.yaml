@@ -44,6 +44,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.90.20
         version: 5.101.1(react@19.2.7)
+      animejs:
+        specifier: ^3.2.2
+        version: 3.2.2
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -93,6 +96,9 @@ importers:
       '@eslint/js':
         specifier: ^9.39.1
         version: 9.39.4
+      '@types/animejs':
+        specifier: ^3.1.13
+        version: 3.1.13
       '@types/node':
         specifier: ^24.10.9
         version: 24.13.2
@@ -1407,6 +1413,9 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
+  '@types/animejs@3.1.13':
+    resolution: {integrity: sha512-yWg9l1z7CAv/TKpty4/vupEh24jDGUZXv4r26StRkpUPQm04ztJaftgpto8vwdFs8SiTq6XfaPKCSI+wjzNMvQ==}
+
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
 
@@ -1540,6 +1549,9 @@ packages:
 
   ajv@6.15.0:
     resolution: {integrity: sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==}
+
+  animejs@3.2.2:
+    resolution: {integrity: sha512-Ao95qWLpDPXXM+WrmwcKbl6uNlC5tjnowlaRYtuVDHHoygjtIPfDUoK9NthrlZsQSKjZXlmji2TrBUAVbiH0LQ==}
 
   ansi-styles@4.3.0:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
@@ -3600,6 +3612,8 @@ snapshots:
       '@tanstack/query-core': 5.101.1
       react: 19.2.7
 
+  '@types/animejs@3.1.13': {}
+
   '@types/babel__core@7.20.5':
     dependencies:
       '@babel/parser': 7.29.7
@@ -3776,6 +3790,8 @@ snapshots:
       fast-json-stable-stringify: 2.1.0
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
+
+  animejs@3.2.2: {}
 
   ansi-styles@4.3.0:
     dependencies:
