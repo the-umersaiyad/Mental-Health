@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import AppSidebar from "./components/AppSidebar"
 import Navbar from "./components/Navbar"
+import CustomCursor from "./components/CustomCursor"
 
 import Dashboard from "./pages/Dashboard"
 import ManageJournal from "./pages/ManageJournal"
@@ -12,10 +13,11 @@ function App() {
   return (
      <QueryClientProvider client={queryClient}>
     <Router>
-      <div className="flex min-h-screen w-full">
+      <CustomCursor />
+      <div className="flex min-h-screen w-full relative">
         <AppSidebar />
 
-        <main className="flex-1 w-full">
+        <main className="flex-1 w-full relative z-10">
           <Navbar />
 
           <Routes>
